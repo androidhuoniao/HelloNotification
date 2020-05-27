@@ -9,8 +9,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -24,28 +23,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findViewById<Button>(R.id.notify_btn).setOnClickListener {
-            showNotification(this@MainActivity)
+        findViewById<ImageButton>(R.id.notify_emui_btn).setOnClickListener {
+            showNotification(this@MainActivity, R.mipmap.emui_icon)
         }
-    }
-
-    /**
-     * Lollipop系统后，通知栏小图标要使用纯白+透明的图标模式。
-     * Build Target < 21也OK。
-     */
-    fun getSuitableSmallIcon(): Int {
-        if (MobileUtil.isHuawei()) {
-            return R.mipmap.emui_icon
+        findViewById<ImageButton>(R.id.notify_icon_white_btn).setOnClickListener {
+            showNotification(this@MainActivity, R.mipmap.icon_white)
         }
-        return if (MobileUtil.isOppo()) {
-            R.mipmap.emui_icon
-        } else R.mipmap.icon_white
-        return R.drawable.kb_icon;
+        findViewById<ImageButton>(R.id.notify_kb_icon_btn).setOnClickListener {
+            showNotification(this@MainActivity, R.drawable.kb_icon)
+        }
     }
 
     var CALENDAR_ID: String? = "channel_01"
 
-    private fun showNotification(context: Context) {
+    private fun showNotification(context: Context, smallIcon: Int) {
         var notificationManager = NotificationManagerCompat.from(this@MainActivity)
         val notification: Notification
         val builder: NotificationCompat.Builder
@@ -55,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         builder = NotificationCompat.Builder(context, CALENDAR_ID!!)
         val pendingIntent = PendingIntent.getActivity(context, 11,
                 Intent(context, SecondActivity::class.java), 0)
-        notification = builder.setSmallIcon(getSuitableSmallIcon())
+        notification = builder.setSmallIcon(smallIcon)
                 .setContentTitle("My notification")
                 .setContentText("Much longer text that cannot fit one line...")
                 .setStyle(NotificationCompat.BigTextStyle()
@@ -90,5 +81,20 @@ class MainActivity : AppCompatActivity() {
                 300, 200, 400)
         return notificationChannel;
     }
+
+    /**
+     * Lollipop系统后，通知栏小图标要使用纯白+透明的图标模式。
+     * Build Target < 21也OK。
+     */
+    fun getSuitableSmallIcon(): Int {
+        if (MobileUtil.isHuawei()) {
+            return R.mipmap.emui_icon
+        }
+        return if (MobileUtil.isOppo()) {
+            R.mipmap.emui_icon
+        } else R.mipmap.icon_white
+        return R.drawable.kb_icon;
+    }
+
 
 }

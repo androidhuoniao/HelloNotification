@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/notify_btn"
-        android:layout_width="150dp"
+    <ImageButton
+        android:id="@+id/notify_emui_btn"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:text="notify"
-        android:textSize="20sp"
+        android:layout_marginTop="10dp"
         android:background="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@mipmap/emui_icon"
+        android:text="notify_emui_icon"
+        android:textSize="20sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageButton
+        android:id="@+id/notify_icon_white_btn"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorAccent"
+        android:src="@mipmap/icon_white"
+        android:text="notify_emui_icon"
+        android:textSize="20sp" />
+
+    <ImageButton
+        android:id="@+id/notify_kb_icon_btn"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorAccent"
+        android:src="@drawable/kb_icon"
+        android:text="notify_icon_white"
+        android:textSize="20sp" />
+
+</LinearLayout>
