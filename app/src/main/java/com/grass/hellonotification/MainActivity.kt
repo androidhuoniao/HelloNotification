@@ -60,25 +60,28 @@ class MainActivity : AppCompatActivity() {
     private fun makeNotificationChannel(): NotificationChannel {
         val notificationChannel = NotificationChannel(CALENDAR_ID, "123",
                 NotificationManager.IMPORTANCE_DEFAULT)
-        // 设置渠道描述
-        notificationChannel.description = "测试通知组"
-        // 是否绕过请勿打扰模式
-        notificationChannel.canBypassDnd()
-        // 设置绕过请勿打扰模式
-        notificationChannel.setBypassDnd(true)
-        // 桌面Launcher的消息角标
-        notificationChannel.canShowBadge()
-        // 设置显示桌面Launcher的消息角标
-        notificationChannel.setShowBadge(true)
-        // 设置通知出现时声音，默认通知是有声音的
-        notificationChannel.setSound(null, null)
-        // 设置通知出现时的闪灯（如果 android 设备支持的话）
-        notificationChannel.enableLights(true)
-        notificationChannel.lightColor = Color.RED
-        // 设置通知出现时的震动（如果 android 设备支持的话）
-        notificationChannel.enableVibration(true)
-        notificationChannel.vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400,
-                300, 200, 400)
+        // 既可以使用apply，也可以使用with
+        notificationChannel.apply {
+            // 设置渠道描述
+            description = "测试通知组"
+            // 是否绕过请勿打扰模式
+            canBypassDnd()
+            // 设置绕过请勿打扰模式
+            setBypassDnd(true)
+            // 桌面Launcher的消息角标
+            canShowBadge()
+            // 设置显示桌面Launcher的消息角标
+            setShowBadge(true)
+            // 设置通知出现时声音，默认通知是有声音的
+            setSound(null, null)
+            // 设置通知出现时的闪灯（如果 android 设备支持的话）
+            enableLights(true)
+            lightColor = Color.RED
+            // 设置通知出现时的震动（如果 android 设备支持的话）
+            enableVibration(true)
+            vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400,
+                    300, 200, 400)
+        }
         return notificationChannel;
     }
 
@@ -87,13 +90,14 @@ class MainActivity : AppCompatActivity() {
      * Build Target < 21也OK。
      */
     fun getSuitableSmallIcon(): Int {
-        if (MobileUtil.isHuawei()) {
-            return R.mipmap.emui_icon
-        }
-        return if (MobileUtil.isOppo()) {
+        var iconRes = if (MobileUtil.isHuawei()) {
             R.mipmap.emui_icon
-        } else R.mipmap.icon_white
-        return R.drawable.kb_icon;
+        } else if (MobileUtil.isOppo()) {
+            R.mipmap.emui_icon
+        } else {
+            R.drawable.kb_icon
+        }
+        return iconRes
     }
 
 
